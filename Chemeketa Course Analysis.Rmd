@@ -19,6 +19,14 @@ output:
 
 ---
 
+Executive Summary {data-orientation=rows}
+================================================================================
+
+Row {data-height=600}
+-----------------------------------------------------------------------
+
+
+
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(flexdashboard)
@@ -39,7 +47,8 @@ by_subject_and_campus = instruction_mode %>%
   summarize(Total_Sections = n(), 
             Total_Enrolled = sum(TOTAL_ENROLL, na.rm = TRUE),
             Total_FTE = sum(TOTAL_FTE, na.rm = TRUE),
-            Pass_Rate = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled) %>%
+            C_OR_BETTER = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled,
+            Avg_Class_Size = Total_Enrolled/Total_Sections) %>%
   mutate(TERM_CODE = factor(TERM_CODE, levels = unique(TERM_CODE), labels = unique(TERM_DESCRIPTION))) %>%
   ungroup()
 
@@ -48,7 +57,8 @@ all_subjects = instruction_mode %>%
   summarize(Total_Sections = n(), 
             Total_Enrolled = sum(TOTAL_ENROLL, na.rm = TRUE),
             Total_FTE = sum(TOTAL_FTE, na.rm = TRUE),
-            Pass_Rate = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled) %>%
+            C_OR_BETTER = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled,
+            Avg_Class_Size = Total_Enrolled/Total_Sections) %>%
   mutate(TERM_CODE = factor(TERM_CODE, levels = unique(TERM_CODE), labels = unique(TERM_DESCRIPTION))) %>%
   ungroup() %>%
   mutate(SUBJECT = "All Subjects")
@@ -58,7 +68,8 @@ all_campuses = instruction_mode %>%
   summarize(Total_Sections = n(), 
             Total_Enrolled = sum(TOTAL_ENROLL, na.rm = TRUE),
             Total_FTE = sum(TOTAL_FTE, na.rm = TRUE),
-            Pass_Rate = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled) %>%
+            C_OR_BETTER = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled,
+            Avg_Class_Size = Total_Enrolled/Total_Sections) %>%
   mutate(TERM_CODE = factor(TERM_CODE, levels = unique(TERM_CODE), labels = unique(TERM_DESCRIPTION))) %>%
   ungroup() %>%
   mutate(CAMPUS = "All Campuses")
@@ -68,7 +79,8 @@ all_subjects_and_campuses = instruction_mode %>%
   summarize(Total_Sections = n(), 
             Total_Enrolled = sum(TOTAL_ENROLL, na.rm = TRUE),
             Total_FTE = sum(TOTAL_FTE, na.rm = TRUE),
-            Pass_Rate = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled) %>%
+            C_OR_BETTER = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled,
+                        Avg_Class_Size = Total_Enrolled/Total_Sections) %>%
   mutate(TERM_CODE = factor(TERM_CODE, levels = unique(TERM_CODE), labels = unique(TERM_DESCRIPTION))) %>%
   ungroup() %>%
   mutate(SUBJECT = "All Subjects and Campuses",
@@ -78,9 +90,12 @@ all_subjects_and_campuses = instruction_mode %>%
 data_for_graphs = bind_rows(by_subject_and_campus, all_campuses, all_subjects, all_subjects_and_campuses) %>%
   bind_rows(., tibble(SUBJECT = " ", 
                       CAMPUS = " ")) %>%
-  mutate(Pass_Rate = round(Pass_Rate, 2))
+  mutate(C_OR_BETTER = round(C_OR_BETTER, 2),
+         Avg_Class_Size = round(Avg_Class_Size, 2)) %>%
+  relocate(Avg_Class_Size, .after = Total_Enrolled)
 
 shared_data_for_graphs <- SharedData$new(data_for_graphs)
+shared_data_for_graphs2 <- SharedData$new(data_for_graphs)
 
 
 ```
@@ -150,6 +165,26 @@ plot_ly(shared_data_for_graphs,
 Row {data-height=400}
 -----------------------------------------------------------------------
 
+### Average Class Size
+
+```{r}
+
+plot_ly(shared_data_for_graphs, 
+        x = ~TERM_CODE, 
+        y = ~Avg_Class_Size, 
+        color = ~DELIVERY_METHOD, 
+        colors = c("#6b6f2a", "#522c1b", "#f6d654", "#569099"), 
+        type="scatter", 
+        mode="lines+markers") %>%
+  layout(xaxis = list(title = "Term Code", tickangle = 90),
+         yaxis = list(title = "Average Class Size"))
+
+```
+
+
+Row {data-height=600}
+-----------------------------------------------------------------------
+
 ### Data
 
 ```{r}
@@ -158,9 +193,97 @@ datatable(shared_data_for_graphs,
           extensions = "Buttons", 
           options = list(dom = 'Bfrtip',
                          pagelength = 200,
-                         scrollY = "200px",
+                         scrollY = "600px",
                          buttons = list('copy', 'csv', 'excel'),
                          columnDefs = list(list(visible = FALSE, targets = c(0))))
           )
 
 ```
+
+
+
+
+Grades {data-orientation=rows}
+================================================================================
+
+{.sidebar}
+--------------------------------------------------------------------------------
+
+```{r}
+filter_select(id = "SUBJECT  ", label = "Subject",  sharedData = shared_data_for_graphs2, ~SUBJECT, multiple = F)
+filter_select(id = "CAMPUS  ", label = "Term",  sharedData = shared_data_for_graphs2, ~CAMPUS)
+
+
+```
+
+```{js}
+function filter_default(){
+  document.getElementById("SUBJECT  ").getElementsByClassName("selectized")[0].selectize.setValue(" ", false)
+  document.getElementById("CAMPUS  ").getElementsByClassName("selectized")[0].selectize.setValue(" ", false)
+}
+$(document).ready(filter_default);
+```
+
+Row {data-height=600}
+-----------------------------------------------------------------------
+
+
+### Quality Grades
+
+```{r}
+
+plot_ly(shared_data_for_graphs2, 
+        x = ~TERM_CODE, 
+        y = ~C_OR_BETTER, 
+        color = ~DELIVERY_METHOD, 
+        colors = c("#6b6f2a", "#522c1b", "#f6d654", "#569099"), 
+        type="scatter", 
+        mode="lines+markers") %>%
+  layout(xaxis = list(title = "Term Code", tickangle = 90),
+         yaxis = list(title = "C or Better (%)"))
+
+```
+
+Row {data-height=600}
+-----------------------------------------------------------------------
+
+### Data
+
+```{r}
+datatable(shared_data_for_graphs2, 
+          class = "display",
+          extensions = "Buttons", 
+          options = list(dom = 'Bfrtip',
+                         pagelength = 200,
+                         scrollY = "600px",
+                         buttons = list('copy', 'csv', 'excel'),
+                         columnDefs = list(list(visible = FALSE, targets = c(0))))
+          )
+
+```
+
+Definitions {data-orientation=rows}
+================================================================================
+
+
+Row {data-height=600}
+-----------------------------------------------------------------------
+
+<span style="font-size: 24px !important;">Definitions</span>
+<br>
+<br>
+<b>Inclusion Criteria: </b> In order for a campus to be included, an enrollment of at least 
+<br>
+<b>Total Sections: </b>
+<br>
+<b>Total Enrollment: </b> 
+<br>
+<b>Average Class Size: </b>
+<br>
+<b>Quality Grades: </b>
+<br>
+<b>Efficiency: </b>
+<br>
+<b>Effectiveness: </b>
+
+
