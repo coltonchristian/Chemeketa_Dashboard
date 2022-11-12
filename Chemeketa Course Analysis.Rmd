@@ -1,26 +1,24 @@
 ---
 title: "Chemeketa Course Analysis"
-output: 
+output:
   flexdashboard::flex_dashboard:
     orientation: columns
     vertical_layout: scroll
-    theme: 
+    theme:
       version: 4
-      bg: "#FFFFFF"
-      fg: "#522c1b"
-      primary: "#6b6f2a"
-      navbar-bg: "#522c1b"
-      base_font: 
+      bg: '#FFFFFF'
+      fg: '#522c1b'
+      primary: '#6b6f2a'
+      navbar-bg: '#522c1b'
+      base_font:
         google: Open Sans
-      heading_font: 
+      heading_font:
         google: Open Sans
       code_font:
         google: Fira Code
+
 ---
 
-# Need to add average class size
-# Need to add DFW rates
-# Need to make slides and one page summary
 ```{r setup, include=FALSE}
 library(tidyverse)
 library(flexdashboard)
@@ -28,7 +26,7 @@ library(crosstalk)
 library(plotly)
 library(DT)
 
-chemeketa_data <- read.csv("C:/Users/Colton/Downloads/Data Set for IRR Director Interview Presentation.txt")
+chemeketa_data <- read.csv("Data Set for IRR Director Interview Presentation.txt")
 
 instruction_mode <- chemeketa_data %>%
   group_by(CAMPUS) %>%
@@ -99,8 +97,9 @@ Enrollment {data-orientation=rows}
 --------------------------------------------------------------------------------
 
 ```{r}
-filter_select(id = "SUBJECT ", label = "Subject", sharedData = shared_data_for_graphs, ~SUBJECT, multiple = F)
-filter_select(id = "CAMPUS ", label = "Term", sharedData = shared_data_for_graphs, ~CAMPUS)
+filter_select(id = "SUBJECT ", label = "Subject",  sharedData = shared_data_for_graphs, ~SUBJECT, multiple = F)
+filter_select(id = "CAMPUS ", label = "Term",  sharedData = shared_data_for_graphs, ~CAMPUS)
+
 
 ```
 
@@ -109,7 +108,7 @@ function filter_default(){
   document.getElementById("SUBJECT ").getElementsByClassName("selectized")[0].selectize.setValue(" ", false)
   document.getElementById("CAMPUS ").getElementsByClassName("selectized")[0].selectize.setValue(" ", false)
 }
-$(document).ready(filter_default)
+$(document).ready(filter_default);
 ```
 
 Row {data-height=600}
