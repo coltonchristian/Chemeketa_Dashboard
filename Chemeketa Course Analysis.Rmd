@@ -1,0 +1,167 @@
+---
+title: "Chemeketa Course Analysis"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: scroll
+    theme: 
+      version: 4
+      bg: "#FFFFFF"
+      fg: "#522c1b"
+      primary: "#6b6f2a"
+      navbar-bg: "#522c1b"
+      base_font: 
+        google: Open Sans
+      heading_font: 
+        google: Open Sans
+      code_font:
+        google: Fira Code
+---
+
+# Need to add average class size
+# Need to add DFW rates
+# Need to make slides and one page summary
+```{r setup, include=FALSE}
+library(tidyverse)
+library(flexdashboard)
+library(crosstalk)
+library(plotly)
+library(DT)
+
+chemeketa_data <- read.csv("C:/Users/Colton/Downloads/Data Set for IRR Director Interview Presentation.txt")
+
+instruction_mode <- chemeketa_data %>%
+  group_by(CAMPUS) %>%
+  filter(n() >= 100) %>%
+  ungroup() %>%
+  filter(str_sub(TERM_CODE,-2) != "10") 
+
+by_subject_and_campus = instruction_mode %>%
+  group_by(TERM_CODE, TERM_DESCRIPTION, CAMPUS, SUBJECT, DELIVERY_METHOD) %>%
+  summarize(Total_Sections = n(), 
+            Total_Enrolled = sum(TOTAL_ENROLL, na.rm = TRUE),
+            Total_FTE = sum(TOTAL_FTE, na.rm = TRUE),
+            Pass_Rate = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled) %>%
+  mutate(TERM_CODE = factor(TERM_CODE, levels = unique(TERM_CODE), labels = unique(TERM_DESCRIPTION))) %>%
+  ungroup()
+
+all_subjects = instruction_mode %>%
+  group_by(TERM_CODE, TERM_DESCRIPTION, CAMPUS, DELIVERY_METHOD) %>%
+  summarize(Total_Sections = n(), 
+            Total_Enrolled = sum(TOTAL_ENROLL, na.rm = TRUE),
+            Total_FTE = sum(TOTAL_FTE, na.rm = TRUE),
+            Pass_Rate = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled) %>%
+  mutate(TERM_CODE = factor(TERM_CODE, levels = unique(TERM_CODE), labels = unique(TERM_DESCRIPTION))) %>%
+  ungroup() %>%
+  mutate(SUBJECT = "All Subjects")
+
+all_campuses = instruction_mode %>%
+  group_by(TERM_CODE, TERM_DESCRIPTION, SUBJECT, DELIVERY_METHOD) %>%
+  summarize(Total_Sections = n(), 
+            Total_Enrolled = sum(TOTAL_ENROLL, na.rm = TRUE),
+            Total_FTE = sum(TOTAL_FTE, na.rm = TRUE),
+            Pass_Rate = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled) %>%
+  mutate(TERM_CODE = factor(TERM_CODE, levels = unique(TERM_CODE), labels = unique(TERM_DESCRIPTION))) %>%
+  ungroup() %>%
+  mutate(CAMPUS = "All Campuses")
+
+all_subjects_and_campuses = instruction_mode %>%
+  group_by(TERM_CODE, TERM_DESCRIPTION, DELIVERY_METHOD) %>%
+  summarize(Total_Sections = n(), 
+            Total_Enrolled = sum(TOTAL_ENROLL, na.rm = TRUE),
+            Total_FTE = sum(TOTAL_FTE, na.rm = TRUE),
+            Pass_Rate = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled) %>%
+  mutate(TERM_CODE = factor(TERM_CODE, levels = unique(TERM_CODE), labels = unique(TERM_DESCRIPTION))) %>%
+  ungroup() %>%
+  mutate(SUBJECT = "All Subjects and Campuses",
+         CAMPUS = "All Subjects and Campuses")
+
+
+data_for_graphs = bind_rows(by_subject_and_campus, all_campuses, all_subjects, all_subjects_and_campuses) %>%
+  bind_rows(., tibble(SUBJECT = " ", 
+                      CAMPUS = " ")) %>%
+  mutate(Pass_Rate = round(Pass_Rate, 2))
+
+shared_data_for_graphs <- SharedData$new(data_for_graphs)
+
+
+```
+
+<style>
+.sidebar-nav {visibility: hidden}
+.dataTables_scrollBody{max-width: 95% !important; }
+</style>
+
+Enrollment {data-orientation=rows}
+================================================================================
+
+{.sidebar}
+--------------------------------------------------------------------------------
+
+```{r}
+filter_select(id = "SUBJECT ", label = "Subject", sharedData = shared_data_for_graphs, ~SUBJECT, multiple = F)
+filter_select(id = "CAMPUS ", label = "Term", sharedData = shared_data_for_graphs, ~CAMPUS)
+
+```
+
+```{js}
+function filter_default(){
+  document.getElementById("SUBJECT ").getElementsByClassName("selectized")[0].selectize.setValue(" ", false)
+  document.getElementById("CAMPUS ").getElementsByClassName("selectized")[0].selectize.setValue(" ", false)
+}
+$(document).ready(filter_default)
+```
+
+Row {data-height=600}
+-----------------------------------------------------------------------
+
+
+### Total Sections
+
+```{r}
+
+plot_ly(shared_data_for_graphs, 
+        x = ~TERM_CODE, 
+        y = ~Total_Sections, 
+        color = ~DELIVERY_METHOD, 
+        colors = c("#6b6f2a", "#522c1b", "#f6d654", "#569099"), 
+        type="scatter", 
+        mode="lines+markers") %>%
+  layout(xaxis = list(title = "Term Code", tickangle = 90),
+         yaxis = list(title = "Total Sections"))
+
+```
+
+### Total Enrolled
+
+```{r}
+
+plot_ly(shared_data_for_graphs, 
+        x = ~TERM_CODE, 
+        y = ~Total_Enrolled, 
+        color = ~DELIVERY_METHOD, 
+        colors = c("#6b6f2a", "#522c1b", "#f6d654", "#569099"), 
+        type="scatter", 
+        mode="lines+markers") %>%
+  layout(xaxis = list(title = "Term Code", tickangle = 90),
+         yaxis = list(title = "Number of Students Enrolled"))
+
+```
+
+Row {data-height=400}
+-----------------------------------------------------------------------
+
+### Data
+
+```{r}
+datatable(shared_data_for_graphs, 
+          class = "display",
+          extensions = "Buttons", 
+          options = list(dom = 'Bfrtip',
+                         pagelength = 200,
+                         scrollY = "200px",
+                         buttons = list('copy', 'csv', 'excel'),
+                         columnDefs = list(list(visible = FALSE, targets = c(0))))
+          )
+
+```
