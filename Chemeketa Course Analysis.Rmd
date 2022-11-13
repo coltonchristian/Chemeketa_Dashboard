@@ -16,15 +16,59 @@ output:
         google: Open Sans
       code_font:
         google: Fira Code
-
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
-Executive Summary {data-orientation=rows}
+Executive Summary {data-orientation="columns"}
 ================================================================================
 
-Row {data-height=600}
------------------------------------------------------------------------
+Column {data-width="800"}
+--------------------------------------------------------------------------------
 
+
+<div style="width:1000px; margin:0 auto;">
+   
+
+<span style="font-size: 24px !important;">Executive Summary</span> 
+<br> 
+<br> 
+For this project, I set out to analyze course section data at Chemeketa to
+answer three main questions: 
+<br> 
+<br> 
+--- How has Chemeketa's enrollment changed over the last 5 years? What parts of this were
+already set in motion before the pandemic and what parts of this were
+accelerated by the pandemic? 
+<br> 
+<br> 
+--- Has Chemeketa been successful in adapting instructional offerings to these changing circumstances in an efficient manner?
+<br> 
+<br> 
+--- How have these changes impacted students? 
+<br> 
+<br>
+<span style="font-size: 16px !important;"><b>How has Chemeketa's enrollment changed over the
+last 5 years? What parts of this were already set in motion before the
+pandemic and what parts of this were accelerated by the
+pandemic?</b></span>
+As you know, overall enrollment at Chemeketa has been declining since Fall 2016. This is in line with a statewide trend for <a href = "https://www.oregon.gov/highered/research/Documents/Student/CC-enrollment-total-historical.pdf">community colleges</a> and for <a href = "https://www.oregon.gov/highered/research/Documents/Student/Univ-enrollment-total-historical.pdf">public universities</a> in Oregon. Although enrollments were declining prior to the onset of the pandemic, enrollment declines accelerated during the pandemic. 
+
+Between Fall 2016 and Fall 2019, overall enrollments dropped approximately 13%, whereas between Fall 2016 and Fall 2020, overall enrollment dropped approximately 26%. Interestingly, the majority of the Fall 2016 to Fall 2020 decline is accounted for by a drop in enrollment that includes an in-person component. Between Fall 2016 and Fall 2020, in-person and hybrid enrollment dropped approximately 33% (from 18562 when in-person and hybrid combined in Fall 2016 to 12404 when in-person and hybrid were combined in the remote category in Fall 2020). Conversely, enrollments for online and hybrid classes remained relatively more stable between Fall 2016 and Fall 2019.  
+
+<span style="font-size: 16px !important;"><b>Has Chemeketa been successful in adapting instructional offerings to these changing circumstances in an efficient manner?</b></span> 
+<br> 
+<br> 
+In order to maintain a fiscally sustainable future institutions are faced with difficult decisions when enrollments decline. In these situations, there’s no way to offer the same number of sections to a shrinking number of students without teaching those courses in a less efficient manner (lower class sizes, lower enrollment ratios, and higher costs from a labor perspective). 
+
+In an ideal situation, the total number of sections/seats offered would fluctuate in tandem with enrollment. That is, when enrollment goes down, so too would the total number of sections/seats offered (and in a similar magnitude). Average class size is one metric that can be used to monitor whether adjustments to the total number of sections/seats are tracking declines in total enrollment. Chemeketa’s average class size has remained relatively stable across this timeframe. Average class sizes for in-person (25), hybrid (23), and online (24) courses in Fall 2016 are similar to average class sizes for remote (23) and online (24) courses in Fall 2020. This suggests that declines in enrollment have been largely met with an equal and corresponding reaction in terms of total number of sections/seats offered. In other words, courses in Fall 2020 are as economically efficient as they were in Fall 2016 – this is a bright spot. 
+
+<span style="font-size: 16px !important;"><b>How have these changes impacted students?</b></span>
+<br>
+<br>
+As decisions are made to ensure a fiscally sustainable future or to ensure the health and well-being of students, it is important to monitor whether these changes impact the most important stakeholder – students. That is, does reducing course offerings or switching in-person/hybrid course offerings to remote delivery impact student achievement? The average percentage of students receiving a quality grade of C or better in their courses can be used to monitor whether these adjustments have been effective at maintaining or improving student achievement. Chemeketa’s average percentage of quality grades has actually improved across this timeframe, especially for online courses. The average percentage of quality grades for online (81%) courses in Fall 2020 is quite a bit higher than the average percentage of quality grades for online (73%) courses in Fall 2016. Additionally, the remote (80%) percentage in Fall 2020 is similar or higher than the in-person (81%) and hybrid (73%) percentages in Fall 2016. This suggests that reducing course offerings and/or switching in-person/hybrid course offerings to remote delivery did not impact student achievement negatively.
+</div>
 
 
 ```{r setup, include=FALSE}
@@ -37,9 +81,7 @@ library(DT)
 chemeketa_data <- read.csv("Data Set for IRR Director Interview Presentation.txt")
 
 instruction_mode <- chemeketa_data %>%
-  group_by(CAMPUS) %>%
-  filter(n() >= 100) %>%
-  ungroup() %>%
+  filter(DELIVERY_METHOD != "Other Delivery") %>%
   filter(str_sub(TERM_CODE,-2) != "10") 
 
 by_subject_and_campus = instruction_mode %>%
@@ -100,35 +142,28 @@ shared_data_for_graphs2 <- SharedData$new(data_for_graphs)
 
 ```
 
-<style>
-.sidebar-nav {visibility: hidden}
-.dataTables_scrollBody{max-width: 95% !important; }
-</style>
-
-Enrollment {data-orientation=rows}
+Enrollment {data-orientation="rows"}
 ================================================================================
 
 {.sidebar}
 --------------------------------------------------------------------------------
-
 ```{r}
 filter_select(id = "SUBJECT ", label = "Subject",  sharedData = shared_data_for_graphs, ~SUBJECT, multiple = F)
-filter_select(id = "CAMPUS ", label = "Term",  sharedData = shared_data_for_graphs, ~CAMPUS)
+filter_select(id = "CAMPUS ", label = "Campus",  sharedData = shared_data_for_graphs, ~CAMPUS, multiple = F)
 
 
 ```
 
 ```{js}
 function filter_default(){
-  document.getElementById("SUBJECT ").getElementsByClassName("selectized")[0].selectize.setValue(" ", false)
-  document.getElementById("CAMPUS ").getElementsByClassName("selectized")[0].selectize.setValue(" ", false)
+  document.getElementById("SUBJECT ").getElementsByClassName("selectized")[0].selectize.setValue("All Subjects and Campuses", false)
+  document.getElementById("CAMPUS ").getElementsByClassName("selectized")[0].selectize.setValue("All Subjects and Campuses", false)
 }
 $(document).ready(filter_default);
 ```
 
-Row {data-height=600}
------------------------------------------------------------------------
-
+Row {data-height="600"}
+--------------------------------------------------------------------------------
 
 ### Total Sections
 
@@ -162,8 +197,8 @@ plot_ly(shared_data_for_graphs,
 
 ```
 
-Row {data-height=400}
------------------------------------------------------------------------
+Row {data-height="400"}
+--------------------------------------------------------------------------------
 
 ### Average Class Size
 
@@ -181,11 +216,11 @@ plot_ly(shared_data_for_graphs,
 
 ```
 
-
-Row {data-height=600}
------------------------------------------------------------------------
+Row {data-height="600"}
+--------------------------------------------------------------------------------
 
 ### Data
+
 
 ```{r}
 datatable(shared_data_for_graphs, 
@@ -195,15 +230,13 @@ datatable(shared_data_for_graphs,
                          pagelength = 200,
                          scrollY = "600px",
                          buttons = list('copy', 'csv', 'excel'),
+                         autoWidth = TRUE,
                          columnDefs = list(list(visible = FALSE, targets = c(0))))
           )
 
 ```
 
-
-
-
-Grades {data-orientation=rows}
+Grades {data-orientation="rows"}
 ================================================================================
 
 {.sidebar}
@@ -211,22 +244,21 @@ Grades {data-orientation=rows}
 
 ```{r}
 filter_select(id = "SUBJECT  ", label = "Subject",  sharedData = shared_data_for_graphs2, ~SUBJECT, multiple = F)
-filter_select(id = "CAMPUS  ", label = "Term",  sharedData = shared_data_for_graphs2, ~CAMPUS)
+filter_select(id = "CAMPUS  ", label = "Campus",  sharedData = shared_data_for_graphs2, ~CAMPUS)
 
 
 ```
 
 ```{js}
 function filter_default(){
-  document.getElementById("SUBJECT  ").getElementsByClassName("selectized")[0].selectize.setValue(" ", false)
-  document.getElementById("CAMPUS  ").getElementsByClassName("selectized")[0].selectize.setValue(" ", false)
+  document.getElementById("SUBJECT  ").getElementsByClassName("selectized")[0].selectize.setValue("All Subjects and Campuses", false)
+  document.getElementById("CAMPUS  ").getElementsByClassName("selectized")[0].selectize.setValue("All Subjects and Campuses", false)
 }
 $(document).ready(filter_default);
 ```
 
-Row {data-height=600}
------------------------------------------------------------------------
-
+Row {data-height="600"}
+--------------------------------------------------------------------------------
 
 ### Quality Grades
 
@@ -244,8 +276,8 @@ plot_ly(shared_data_for_graphs2,
 
 ```
 
-Row {data-height=600}
------------------------------------------------------------------------
+Row {data-height="600"}
+--------------------------------------------------------------------------------
 
 ### Data
 
@@ -257,33 +289,43 @@ datatable(shared_data_for_graphs2,
                          pagelength = 200,
                          scrollY = "600px",
                          buttons = list('copy', 'csv', 'excel'),
+                         autoWidth = TRUE,
                          columnDefs = list(list(visible = FALSE, targets = c(0))))
           )
 
 ```
 
-Definitions {data-orientation=rows}
+Definitions {data-orientation="rows"}
 ================================================================================
 
-
-Row {data-height=600}
------------------------------------------------------------------------
+Row {data-height="900"}
+--------------------------------------------------------------------------------
 
 <span style="font-size: 24px !important;">Definitions</span>
+<br> 
 <br>
+<b>Inclusion Criteria:</b> Summer terms and course sections offered via "Other Delivery" method were excluded. 
 <br>
-<b>Inclusion Criteria: </b> In order for a campus to be included, an enrollment of at least 
-<br>
-<b>Total Sections: </b>
-<br>
-<b>Total Enrollment: </b> 
-<br>
-<b>Average Class Size: </b>
-<br>
-<b>Quality Grades: </b>
-<br>
-<b>Efficiency: </b>
-<br>
-<b>Effectiveness: </b>
-
-
+<br> 
+<b>Total Sections:</b> This is the total number of course sections
+for each subject and campus. 
+<br> 
+<br> 
+<b>Total Enrollment:</b> This is
+the total headcount of students for each subject and campus. Students
+can be counted in subjects multiple times if they are enrolled in
+multiple courses within a given subject or campus. 
+<br> 
+<br> 
+<b>Average Section Size:</b> This is the total number of course sections divided by
+the total enrollment. This is a measure of efficiency -- how many
+student credit hours are being generated for a given course section?
+That being said, different institutions can optimize average section
+size towards different goals (e.g. having the lowest average section
+size possible while still remaining fiscally viable vs having the
+highest average section size possible without regard for any other
+conditions). 
+<br> 
+<br> 
+<b>Quality Grades:</b> This is the total number of grades that were C or better. This is a measure of effectiveness -- are Chemeketa's students doing well in their courses? Are they passing
+courses with quality grades? Are they accumulating credits? Are they more likely to be on track to graduate? Grades of less than C or better tilt the answers to all of these questions towards "No". <br>
