@@ -38,7 +38,7 @@ For this project, I set out to analyze course section data at Chemeketa to
 answer three main questions: 
 <br> 
 <br> 
---- How has Chemeketa's enrollment changed over the last 5 years? What parts of this were
+--- How have Chemeketa's course enrollments changed over the last 5 years? What parts of this were
 already set in motion before the pandemic and what parts of this were
 accelerated by the pandemic? 
 <br> 
@@ -49,20 +49,22 @@ accelerated by the pandemic?
 --- How have these changes impacted students? 
 <br> 
 <br>
-<span style="font-size: 16px !important;"><b>How has Chemeketa's enrollment changed over the
+<span style="font-size: 16px !important;"><b>How have Chemeketa's course enrollments changed over the
 last 5 years? What parts of this were already set in motion before the
 pandemic and what parts of this were accelerated by the
 pandemic?</b></span>
-As you know, overall enrollment at Chemeketa has been declining since Fall 2016. This is in line with a statewide trend for <a href = "https://www.oregon.gov/highered/research/Documents/Student/CC-enrollment-total-historical.pdf">community colleges</a> and for <a href = "https://www.oregon.gov/highered/research/Documents/Student/Univ-enrollment-total-historical.pdf">public universities</a> in Oregon. Although enrollments were declining prior to the onset of the pandemic, enrollment declines accelerated during the pandemic. 
+<br>
+<br>
+As you know, overall course enrollment at Chemeketa has been declining since Fall 2016. This is in line with a statewide trend for enrollment headcounts <a href = "https://www.oregon.gov/highered/research/Documents/Student/CC-enrollment-total-historical.pdf">community colleges</a> and for <a href = "https://www.oregon.gov/highered/research/Documents/Student/Univ-enrollment-total-historical.pdf">public universities</a> in Oregon. Although course enrollments were declining prior to the onset of the pandemic, enrollment declines accelerated during the pandemic. 
 
-Between Fall 2016 and Fall 2019, overall enrollments dropped approximately 13%, whereas between Fall 2016 and Fall 2020, overall enrollment dropped approximately 26%. Interestingly, the majority of the Fall 2016 to Fall 2020 decline is accounted for by a drop in enrollment that includes an in-person component. Between Fall 2016 and Fall 2020, in-person and hybrid enrollment dropped approximately 33% (from 18562 when in-person and hybrid combined in Fall 2016 to 12404 when in-person and hybrid were combined in the remote category in Fall 2020). Conversely, enrollments for online and hybrid classes remained relatively more stable between Fall 2016 and Fall 2019.  
+Between Fall 2016 and Fall 2019, overall course enrollment dropped approximately 13%, whereas between Fall 2016 and Fall 2020, overall course enrollment dropped approximately 26%. Interestingly, the majority of the Fall 2016 to Fall 2020 decline is accounted for by a drop in enrollment that includes an in-person component. Between Fall 2016 and Fall 2020, in-person and hybrid enrollment dropped approximately 33% (from 18562 when in-person and hybrid combined in Fall 2016 to 12404 when in-person and hybrid were combined in the remote category in Fall 2020). Conversely, enrollments for online and hybrid classes remained relatively more stable between Fall 2016 and Fall 2019.  
 
 <span style="font-size: 16px !important;"><b>Has Chemeketa been successful in adapting instructional offerings to these changing circumstances in an efficient manner?</b></span> 
 <br> 
 <br> 
 In order to maintain a fiscally sustainable future institutions are faced with difficult decisions when enrollments decline. In these situations, there’s no way to offer the same number of sections to a shrinking number of students without teaching those courses in a less efficient manner (lower class sizes, lower enrollment ratios, and higher costs from a labor perspective). 
 
-In an ideal situation, the total number of sections/seats offered would fluctuate in tandem with enrollment. That is, when enrollment goes down, so too would the total number of sections/seats offered (and in a similar magnitude). Average class size is one metric that can be used to monitor whether adjustments to the total number of sections/seats are tracking declines in total enrollment. Chemeketa’s average class size has remained relatively stable across this timeframe. Average class sizes for in-person (25), hybrid (23), and online (24) courses in Fall 2016 are similar to average class sizes for remote (23) and online (24) courses in Fall 2020. This suggests that declines in enrollment have been largely met with an equal and corresponding reaction in terms of total number of sections/seats offered. In other words, courses in Fall 2020 are as economically efficient as they were in Fall 2016 – this is a bright spot. 
+In an ideal situation, the total number of sections/seats offered would fluctuate in tandem with enrollment. That is, when enrollment goes down, so too would the total number of sections/seats offered (and in a similar magnitude). Average class size is one metric that can be used to monitor whether adjustments to the total number of sections/seats are tracking declines in total enrollment. Chemeketa’s average class size has remained relatively stable across this timeframe. Average class sizes for in-person (25), hybrid (23), and online (24) courses in Fall 2016 are similar to average class sizes for remote (23) and online (24) courses in Fall 2020. This suggests that declines in enrollment have been largely met with an equal and corresponding reaction in terms of total number of sections/seats offered. In other words, courses in Fall 2020 are as economically efficient as they were in Fall 2016.
 
 <span style="font-size: 16px !important;"><b>How have these changes impacted students?</b></span>
 <br>
@@ -82,6 +84,7 @@ chemeketa_data <- read.csv("Data Set for IRR Director Interview Presentation.txt
 
 instruction_mode <- chemeketa_data %>%
   filter(DELIVERY_METHOD != "Other Delivery") %>%
+  mutate(TERM_DESCRIPTION = ifelse(TERM_DESCRIPTION == "Spring 201", "Spring 2018", TERM_DESCRIPTION)) %>%
   filter(str_sub(TERM_CODE,-2) != "10") 
 
 by_subject_and_campus = instruction_mode %>%
@@ -176,7 +179,7 @@ plot_ly(shared_data_for_graphs,
         colors = c("#6b6f2a", "#522c1b", "#f6d654", "#569099"), 
         type="scatter", 
         mode="lines+markers") %>%
-  layout(xaxis = list(title = "Term Code", tickangle = 90),
+  layout(xaxis = list(title = "\nTerm Code", tickangle = 90),
          yaxis = list(title = "Total Sections"))
 
 ```
@@ -192,7 +195,7 @@ plot_ly(shared_data_for_graphs,
         colors = c("#6b6f2a", "#522c1b", "#f6d654", "#569099"), 
         type="scatter", 
         mode="lines+markers") %>%
-  layout(xaxis = list(title = "Term Code", tickangle = 90),
+  layout(xaxis = list(title = "\nTerm Code", tickangle = 90),
          yaxis = list(title = "Number of Students Enrolled"))
 
 ```
@@ -211,10 +214,12 @@ plot_ly(shared_data_for_graphs,
         colors = c("#6b6f2a", "#522c1b", "#f6d654", "#569099"), 
         type="scatter", 
         mode="lines+markers") %>%
-  layout(xaxis = list(title = "Term Code", tickangle = 90),
-         yaxis = list(title = "Average Class Size"))
+  layout(xaxis = list(title = "\nTerm Code", tickangle = 90),
+         yaxis = list(title = "Average Class Size",
+                      range = c(0, 35)))
 
 ```
+
 
 Row {data-height="600"}
 --------------------------------------------------------------------------------
@@ -271,10 +276,12 @@ plot_ly(shared_data_for_graphs2,
         colors = c("#6b6f2a", "#522c1b", "#f6d654", "#569099"), 
         type="scatter", 
         mode="lines+markers") %>%
-  layout(xaxis = list(title = "Term Code", tickangle = 90),
-         yaxis = list(title = "C or Better (%)"))
+  layout(xaxis = list(title = "\nTerm Code", tickangle = 90),
+         yaxis = list(title = "C or Better (%)",
+                      range = c(0, 1)))
 
 ```
+
 
 Row {data-height="600"}
 --------------------------------------------------------------------------------
@@ -304,7 +311,7 @@ Row {data-height="900"}
 <span style="font-size: 24px !important;">Definitions</span>
 <br> 
 <br>
-<b>Inclusion Criteria:</b> Summer terms and course sections offered via "Other Delivery" method were excluded. 
+<b>Inclusion Criteria:</b> Summer terms and course sections offered via "Other Delivery" method were excluded. Term description was edited from "Spring 201" to "Spring 2018" -- Spring 2018 was the only Spring missing from the set, so I assumed this was just a typo.
 <br>
 <br> 
 <b>Total Sections:</b> This is the total number of course sections
