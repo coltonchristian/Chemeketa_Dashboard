@@ -28,7 +28,7 @@ Column {data-width="800"}
 --------------------------------------------------------------------------------
 
 
-<div style="width:1000px; margin:0 auto;">
+<div style="width:50%; margin:0 auto;">
    
 
 <span style="font-size: 24px !important;">Executive Summary</span> 
