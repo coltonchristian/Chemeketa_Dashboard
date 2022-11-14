@@ -38,9 +38,7 @@ For this project, I set out to analyze course section data at Chemeketa to
 answer three main questions: 
 <br> 
 <br> 
---- How have Chemeketa's course enrollments changed over the last 5 years? What parts of this were
-already set in motion before the pandemic and what parts of this were
-accelerated by the pandemic? 
+--- How have Chemeketa's course enrollments changed over the last 5 years?
 <br> 
 <br> 
 --- Has Chemeketa been successful in adapting instructional offerings to accommodate these changing circumstances in an efficient manner?
@@ -50,9 +48,7 @@ accelerated by the pandemic?
 <br> 
 <br>
 <span style="font-size: 16px !important;"><b>How have Chemeketa's course enrollments changed over the
-last 5 years? What parts of this were already set in motion before the
-pandemic and what parts of this were accelerated by the
-pandemic?</b></span>
+last 5 years?</b></span>
 <br>
 <br>
 As you know, overall course enrollment at Chemeketa has been declining since Fall 2016. This is in line with a statewide trend for enrollment headcounts at <a href = "https://www.oregon.gov/highered/research/Documents/Student/CC-enrollment-total-historical.pdf">community colleges</a> and for <a href = "https://www.oregon.gov/highered/research/Documents/Student/Univ-enrollment-total-historical.pdf">public universities</a> in Oregon. Although course enrollments were declining prior to the onset of the pandemic, enrollment declines accelerated during the pandemic. 
