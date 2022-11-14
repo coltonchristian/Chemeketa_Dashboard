@@ -43,7 +43,7 @@ already set in motion before the pandemic and what parts of this were
 accelerated by the pandemic? 
 <br> 
 <br> 
---- Has Chemeketa been successful in adapting instructional offerings to these changing circumstances in an efficient manner?
+--- Has Chemeketa been successful in adapting instructional offerings to accommodate these changing circumstances in an efficient manner?
 <br> 
 <br> 
 --- How have these changes impacted students? 
@@ -55,21 +55,21 @@ pandemic and what parts of this were accelerated by the
 pandemic?</b></span>
 <br>
 <br>
-As you know, overall course enrollment at Chemeketa has been declining since Fall 2016. This is in line with a statewide trend for enrollment headcounts <a href = "https://www.oregon.gov/highered/research/Documents/Student/CC-enrollment-total-historical.pdf">community colleges</a> and for <a href = "https://www.oregon.gov/highered/research/Documents/Student/Univ-enrollment-total-historical.pdf">public universities</a> in Oregon. Although course enrollments were declining prior to the onset of the pandemic, enrollment declines accelerated during the pandemic. 
+As you know, overall course enrollment at Chemeketa has been declining since Fall 2016. This is in line with a statewide trend for enrollment headcounts at <a href = "https://www.oregon.gov/highered/research/Documents/Student/CC-enrollment-total-historical.pdf">community colleges</a> and for <a href = "https://www.oregon.gov/highered/research/Documents/Student/Univ-enrollment-total-historical.pdf">public universities</a> in Oregon. Although course enrollments were declining prior to the onset of the pandemic, enrollment declines accelerated during the pandemic. 
 
-Between Fall 2016 and Fall 2019, overall course enrollment dropped approximately 13%, whereas between Fall 2016 and Fall 2020, overall course enrollment dropped approximately 26%. Interestingly, the majority of the Fall 2016 to Fall 2020 decline is accounted for by a drop in enrollment that includes an in-person component. Between Fall 2016 and Fall 2020, in-person and hybrid enrollment dropped approximately 33% (from 18562 when in-person and hybrid combined in Fall 2016 to 12404 when in-person and hybrid were combined in the remote category in Fall 2020). Conversely, enrollments for online and hybrid classes remained relatively more stable between Fall 2016 and Fall 2019.  
+Between Fall 2016 and Fall 2019, overall course enrollment dropped approximately 13%, whereas between Fall 2016 and Fall 2020, overall course enrollment dropped approximately 26%. Interestingly, the majority of the Fall 2016 to Fall 2020 decline is accounted for by a drop in enrollment that includes an in-person component. Between Fall 2016 and Fall 2020, in-person and hybrid enrollment dropped approximately 33% (from 18562 when in-person and hybrid were combined in Fall 2016 to 12404 when in-person and hybrid were combined in the remote category in Fall 2020). Conversely, enrollments for online and hybrid classes remained relatively more stable between Fall 2016 and Fall 2019.  
 
-<span style="font-size: 16px !important;"><b>Has Chemeketa been successful in adapting instructional offerings to these changing circumstances in an efficient manner?</b></span> 
+<span style="font-size: 16px !important;"><b>Has Chemeketa been successful in adapting instructional offerings to accommodate these changing circumstances in an efficient manner?</b></span> 
 <br> 
 <br> 
-In order to maintain a fiscally sustainable future institutions are faced with difficult decisions when enrollments decline. In these situations, there’s no way to offer the same number of sections to a shrinking number of students without teaching those courses in a less efficient manner (lower class sizes, lower enrollment ratios, and higher costs from a labor perspective). 
+In order to maintain a fiscally sustainable future, institutions are faced with difficult decisions when enrollments decline. In these situations, there’s no way to offer the same number of sections to a shrinking number of students without teaching those courses in a less efficient manner (lower class sizes, lower enrollment ratios, and higher costs from a labor perspective). 
 
-In an ideal situation, the total number of sections/seats offered would fluctuate in tandem with enrollment. That is, when enrollment goes down, so too would the total number of sections/seats offered (and in a similar magnitude). Average class size is one metric that can be used to monitor whether adjustments to the total number of sections/seats are tracking declines in total enrollment. Chemeketa’s average class size has remained relatively stable across this timeframe. Average class sizes for in-person (25), hybrid (23), and online (24) courses in Fall 2016 are similar to average class sizes for remote (23) and online (24) courses in Fall 2020. This suggests that declines in enrollment have been largely met with an equal and corresponding reaction in terms of total number of sections/seats offered. In other words, courses in Fall 2020 are as economically efficient as they were in Fall 2016.
+In an ideal situation, the total number of sections/seats offered would fluctuate in tandem with course enrollment. That is, when course enrollment goes down, so too would the total number of sections/seats offered (and in a similar magnitude). Average class size is one metric that can be used to monitor whether adjustments to the total number of sections/seats are tracking declines in total course enrollment. Chemeketa’s average class size has remained relatively stable across this timeframe. Average class sizes for in-person (25), hybrid (23), and online (24) courses in Fall 2016 are similar to average class sizes for remote (23) and online (24) courses in Fall 2020. This suggests that declines in course enrollment have been largely met with an equal and corresponding reaction in terms of total number of sections/seats offered. In other words, courses in Fall 2020 are as economically efficient as they were in Fall 2016.
 
 <span style="font-size: 16px !important;"><b>How have these changes impacted students?</b></span>
 <br>
 <br>
-As decisions are made to ensure a fiscally sustainable future or to ensure the health and well-being of students, it is important to monitor whether these changes impact the most important stakeholder – students. That is, does reducing course offerings or switching in-person/hybrid course offerings to remote delivery impact student achievement? The average percentage of students receiving a quality grade of C or better in their courses can be used to monitor whether these adjustments have been effective at maintaining or improving student achievement. Chemeketa’s average percentage of quality grades has actually improved across this timeframe, especially for online courses. The average percentage of quality grades for online (81%) courses in Fall 2020 is quite a bit higher than the average percentage of quality grades for online (73%) courses in Fall 2016. Additionally, the remote (80%) percentage in Fall 2020 is similar or higher than the in-person (81%) and hybrid (73%) percentages in Fall 2016. This suggests that reducing course offerings and/or switching in-person/hybrid course offerings to remote delivery did not impact student achievement negatively.
+As decisions are made to ensure a fiscally sustainable future or to ensure the health and well-being of students (due to a pandemic), it is important to monitor whether these changes impact the most important stakeholder – students. That is, does reducing course offerings or switching in-person/hybrid course offerings to remote delivery impact student achievement? The average percentage of students receiving a quality grade of C or better in their courses can be used to monitor whether these adjustments have been effective at maintaining or improving student achievement. Chemeketa’s average percentage of quality grades has actually improved across this timeframe, especially for online courses. The average percentage of quality grades for online (81%) courses in Fall 2020 is quite a bit higher than the average percentage of quality grades for online (73%) courses in Fall 2016. Additionally, the remote (80%) percentage in Fall 2020 is similar or higher than the in-person (81%) and hybrid (73%) percentages in Fall 2016. This suggests that reducing course offerings and/or switching in-person/hybrid course offerings to remote delivery did not impact student achievement negatively.
 </div>
 
 
@@ -90,20 +90,20 @@ instruction_mode <- chemeketa_data %>%
 by_subject_and_campus = instruction_mode %>%
   group_by(TERM_CODE, TERM_DESCRIPTION, CAMPUS, SUBJECT, DELIVERY_METHOD) %>%
   summarize(Total_Sections = n(), 
-            Total_Enrolled = sum(TOTAL_ENROLL, na.rm = TRUE),
+            Total_Course_Enrollment = sum(TOTAL_ENROLL, na.rm = TRUE),
             Total_FTE = sum(TOTAL_FTE, na.rm = TRUE),
-            C_OR_BETTER = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled,
-            Avg_Class_Size = Total_Enrolled/Total_Sections) %>%
+            C_OR_BETTER = sum(C_OR_BETTER, na.rm = TRUE) / Total_Course_Enrollment,
+            Avg_Class_Size = Total_Course_Enrollment/Total_Sections) %>%
   mutate(TERM_CODE = factor(TERM_CODE, levels = unique(TERM_CODE), labels = unique(TERM_DESCRIPTION))) %>%
   ungroup()
 
 all_subjects = instruction_mode %>%
   group_by(TERM_CODE, TERM_DESCRIPTION, CAMPUS, DELIVERY_METHOD) %>%
   summarize(Total_Sections = n(), 
-            Total_Enrolled = sum(TOTAL_ENROLL, na.rm = TRUE),
+            Total_Course_Enrollment = sum(TOTAL_ENROLL, na.rm = TRUE),
             Total_FTE = sum(TOTAL_FTE, na.rm = TRUE),
-            C_OR_BETTER = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled,
-            Avg_Class_Size = Total_Enrolled/Total_Sections) %>%
+            C_OR_BETTER = sum(C_OR_BETTER, na.rm = TRUE) / Total_Course_Enrollment,
+            Avg_Class_Size = Total_Course_Enrollment/Total_Sections) %>%
   mutate(TERM_CODE = factor(TERM_CODE, levels = unique(TERM_CODE), labels = unique(TERM_DESCRIPTION))) %>%
   ungroup() %>%
   mutate(SUBJECT = "All Subjects")
@@ -111,10 +111,10 @@ all_subjects = instruction_mode %>%
 all_campuses = instruction_mode %>%
   group_by(TERM_CODE, TERM_DESCRIPTION, SUBJECT, DELIVERY_METHOD) %>%
   summarize(Total_Sections = n(), 
-            Total_Enrolled = sum(TOTAL_ENROLL, na.rm = TRUE),
+            Total_Course_Enrollment = sum(TOTAL_ENROLL, na.rm = TRUE),
             Total_FTE = sum(TOTAL_FTE, na.rm = TRUE),
-            C_OR_BETTER = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled,
-            Avg_Class_Size = Total_Enrolled/Total_Sections) %>%
+            C_OR_BETTER = sum(C_OR_BETTER, na.rm = TRUE) / Total_Course_Enrollment,
+            Avg_Class_Size = Total_Course_Enrollment/Total_Sections) %>%
   mutate(TERM_CODE = factor(TERM_CODE, levels = unique(TERM_CODE), labels = unique(TERM_DESCRIPTION))) %>%
   ungroup() %>%
   mutate(CAMPUS = "All Campuses")
@@ -122,10 +122,10 @@ all_campuses = instruction_mode %>%
 all_subjects_and_campuses = instruction_mode %>%
   group_by(TERM_CODE, TERM_DESCRIPTION, DELIVERY_METHOD) %>%
   summarize(Total_Sections = n(), 
-            Total_Enrolled = sum(TOTAL_ENROLL, na.rm = TRUE),
+            Total_Course_Enrollment = sum(TOTAL_ENROLL, na.rm = TRUE),
             Total_FTE = sum(TOTAL_FTE, na.rm = TRUE),
-            C_OR_BETTER = sum(C_OR_BETTER, na.rm = TRUE) / Total_Enrolled,
-                        Avg_Class_Size = Total_Enrolled/Total_Sections) %>%
+            C_OR_BETTER = sum(C_OR_BETTER, na.rm = TRUE) / Total_Course_Enrollment,
+                        Avg_Class_Size = Total_Course_Enrollment/Total_Sections) %>%
   mutate(TERM_CODE = factor(TERM_CODE, levels = unique(TERM_CODE), labels = unique(TERM_DESCRIPTION))) %>%
   ungroup() %>%
   mutate(SUBJECT = "All Subjects and Campuses",
@@ -137,7 +137,7 @@ data_for_graphs = bind_rows(by_subject_and_campus, all_campuses, all_subjects, a
                       CAMPUS = " ")) %>%
   mutate(C_OR_BETTER = round(C_OR_BETTER, 2),
          Avg_Class_Size = round(Avg_Class_Size, 2)) %>%
-  relocate(Avg_Class_Size, .after = Total_Enrolled)
+  relocate(Avg_Class_Size, .after = Total_Course_Enrollment)
 
 shared_data_for_graphs <- SharedData$new(data_for_graphs)
 shared_data_for_graphs2 <- SharedData$new(data_for_graphs)
@@ -184,13 +184,13 @@ plot_ly(shared_data_for_graphs,
 
 ```
 
-### Total Enrolled
+### Total Course Enrollment
 
 ```{r}
 
 plot_ly(shared_data_for_graphs, 
         x = ~TERM_CODE, 
-        y = ~Total_Enrolled, 
+        y = ~Total_Course_Enrollment, 
         color = ~DELIVERY_METHOD, 
         colors = c("#6b6f2a", "#522c1b", "#f6d654", "#569099"), 
         type="scatter", 
@@ -249,7 +249,7 @@ Grades {data-orientation="rows"}
 
 ```{r}
 filter_select(id = "SUBJECT  ", label = "Subject",  sharedData = shared_data_for_graphs2, ~SUBJECT, multiple = F)
-filter_select(id = "CAMPUS  ", label = "Campus",  sharedData = shared_data_for_graphs2, ~CAMPUS)
+filter_select(id = "CAMPUS  ", label = "Campus",  sharedData = shared_data_for_graphs2, ~CAMPUS, multiple = F)
 
 
 ```
@@ -318,14 +318,14 @@ Row {data-height="900"}
 for each subject and campus. 
 <br> 
 <br> 
-<b>Total Enrollment:</b> This is
+<b>Total Course Enrollment:</b> This is
 the total headcount of students for each subject and campus. Students
 can be counted in subjects multiple times if they are enrolled in
 multiple courses within a given subject or campus. 
 <br> 
 <br> 
 <b>Average Section Size:</b> This is the total number of course sections divided by
-the total enrollment. This is a measure of efficiency -- how many
+the total course enrollment. This is a measure of efficiency -- how many
 student credit hours are being generated for a given course section?
 That being said, different institutions can optimize average section
 size towards different goals (e.g. having the lowest average section
@@ -334,5 +334,4 @@ highest average section size possible without regard for any other
 conditions). 
 <br> 
 <br> 
-<b>Quality Grades:</b> This is the total number of grades that were C or better. This is a measure of effectiveness -- are Chemeketa's students doing well in their courses? Are they passing
-courses with quality grades? Are they accumulating credits? Are they more likely to be on track to graduate? Grades of less than C or better tilt the answers to all of these questions towards "No". <br>
+<b>Quality Grades:</b> This is the total number of grades that were C or better. This is a measure of effectiveness -- are Chemeketa's students doing well in their courses? Are they passing courses with quality grades? Are they accumulating credits? Are they more likely to be on track to graduate? Grades of less than C or better tilt the answers to all of these questions towards "No". <br>
